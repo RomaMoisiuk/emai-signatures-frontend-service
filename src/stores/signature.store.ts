@@ -35,29 +35,17 @@ export const useSignatureStore = defineStore({
       }
     },
     async setSignature() {
-      try {
-        const signature = await fetchWrapper.post(`${baseUrl}/signatures`);
-        this.signature = { ...this.signature, ...signature };
-      } catch (error) {
-        this.signature.error = error;
-      }
+      const signature = await fetchWrapper.post(`${baseUrl}/signatures`);
+      this.signature = { ...this.signature, ...signature };
     },
     async getFormData() {
-      try {
-        const formData = await fetchWrapper.get(`${baseUrl}/user-data`);
-        this.formData = { ...this.formData, ...formData };
-      } catch (error) {
-        this.formData.error = error;
-      }
+      const formData = await fetchWrapper.get(`${baseUrl}/user-data`);
+      this.formData = { ...this.formData, ...formData };
     },
     async setFormData(data: any) {
-      try {
-        const formData = await fetchWrapper.post(`${baseUrl}/user-data`, data);
-        this.formData = { ...this.formData, ...formData };
-        setTimeout(async () => await this.setSignature(), 100);
-      } catch (error) {
-        this.formData.error = error;
-      }
+      const formData = await fetchWrapper.post(`${baseUrl}/user-data`, data);
+      this.formData = { ...this.formData, ...formData };
+      setTimeout(async () => await this.setSignature(), 200);
     },
   }
 });

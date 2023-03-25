@@ -96,7 +96,7 @@ const schema = Yup.object().shape({
           Submit
         </button>
       </div>
-      <div v-if="errors.apiError" class="alert alert-danger mt-3 mb-0">{{ errors.apiError }}</div>
+      <div v-if="errors.apiError" class="invalid-feedback">{{ errors.apiError }}</div>
     </Form>
     <div v-if="signature.html" class="signature-container">
       <h3>Your Signature</h3>

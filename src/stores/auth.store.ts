@@ -30,7 +30,8 @@ const baseUrl = `${import.meta.env.VITE_USERS_API_URL}`;
 export const useAuthStore = defineStore({
   id: 'auth',
   state: () => ({
-    user: JSON.parse(localStorage.getItem('user') || '') as AuthData | null,
+    // @ts-ignore
+    user: JSON.parse(localStorage.getItem('user')) as AuthData | null,
     returnUrl: null
   }),
   actions: {

@@ -4,10 +4,19 @@ import * as Yup from 'yup';
 
 import { useAuthStore } from '@/stores';
 import { AuthType } from '@/types';
+import { computed } from 'vue';
+import router from '@/router';
 
 const props = defineProps<{
   authType: AuthType;
 }>()
+
+const authStore = useAuthStore();
+const user = computed(() => authStore.user);
+
+if (user.value) {
+  router.push('/')
+}
 
 const schema = Yup.object().shape({
   email: Yup.string().email('Please provide valid email').required('Email is required'),
@@ -16,7 +25,7 @@ const schema = Yup.object().shape({
 
 //@ts-ignore
 const onSubmit = (values, { setErrors }) => {
-  const { login, register } = useAuthStore();
+  const { login, register } = authStore;
   const { email, password } = values;
 
   if (props.authType === AuthType.login) {
@@ -54,7 +63,7 @@ const onSubmit = (values, { setErrors }) => {
           {{ authType }}
         </button>
       </div>
-      <div v-if="errors.apiError" class="alert alert-danger mt-3 mb-0">{{ errors.apiError }}</div>
+      <div v-if="errors.apiError" class="error">{{ errors.apiError }}</div>
     </Form>
   </div>
 </template>
@@ -67,5 +76,9 @@ const onSubmit = (values, { setErrors }) => {
 
 .btn {
   cursor: pointer;
+}
+
+.error {
+  color: crimson;
 }
 </style>
