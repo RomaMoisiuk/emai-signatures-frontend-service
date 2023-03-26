@@ -1,3 +1,9 @@
+## Run in docker
+
+```sh
+docker-compose up
+```
+
 ## Project Setup
 
 ```sh
